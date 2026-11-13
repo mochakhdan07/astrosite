@@ -1,0 +1,153 @@
+{
+  "version": "8",
+  "dialect": "postgres",
+  "id": "88168f4c-aa2f-4fb1-8abb-0abd44aa0bf4",
+  "prevIds": [
+    "2219c349-9d80-4e03-9ba3-c8edb7b6dbd1"
+  ],
+  "ddl": [
+    {
+      "isRlsEnabled": false,
+      "name": "certificates",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "certificates"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "serial",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "certificates"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "recipient_name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "certificates"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "quiz_name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "certificates"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "score",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "certificates"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "total",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "certificates"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "score_text",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "certificates"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "issued_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "certificates"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "certificates_pkey",
+      "schema": "public",
+      "table": "certificates",
+      "entityType": "pks"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "serial"
+      ],
+      "nullsNotDistinct": false,
+      "name": "certificates_serial_key",
+      "schema": "public",
+      "table": "certificates",
+      "entityType": "uniques"
+    },
+    {
+      "incrementBy": "1",
+      "minValue": "1",
+      "maxValue": "9223372036854775807",
+      "startWith": "1",
+      "cacheSize": 1,
+      "cycle": false,
+      "name": "certificate_serial_seq",
+      "entityType": "sequences",
+      "schema": "public"
+    }
+  ],
+  "renames": []
+}

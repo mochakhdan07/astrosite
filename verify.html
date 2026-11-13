@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" translate="no" class="notranslate">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="google" content="notranslate" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;700&family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Certificate Verification | ARIJU-VII</title>
+    <meta
+      name="description"
+      content="Verify the authenticity of ARIJU-VII quiz completion certificates."
+    />
+    <style>
+      html, body { margin: 0; background: #020617; }
+      #verify-boot { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; color: #cbd5e1; font: 600 16px/1.5 Inter, system-ui, sans-serif; text-align: center; }
+      #verify-boot button { margin-top: 16px; border: 0; border-radius: 999px; padding: 12px 24px; background: #38bdf8; color: #020617; font: inherit; font-weight: 700; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Shown until the app starts, so the page is never blank. -->
+      <div id="verify-boot">
+        <div>
+          <p id="verify-boot-text">Loading certificate verification…</p>
+          <button id="verify-boot-retry" type="button" hidden onclick="window.location.reload()">Reload</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var id = false;
+        try { id = sessionStorage.getItem('ariju-locale-session') === 'id'; } catch (e) {}
+        var text = document.getElementById('verify-boot-text');
+        var retry = document.getElementById('verify-boot-retry');
+        if (id && text) text.textContent = 'Memuat verifikasi sertifikat…';
+        if (id && retry) retry.textContent = 'Muat ulang';
+        function showRetry() {
+          if (window.__verifyMounted || !text || !document.getElementById('verify-boot')) return;
+          text.textContent = id
+            ? 'Halaman belum berhasil dimuat. Periksa koneksi lalu muat ulang, atau buka tautan ini di browser seperti Chrome/Safari.'
+            : 'The page has not loaded yet. Check your connection and reload, or open this link in a browser such as Chrome or Safari.';
+          if (retry) retry.hidden = false;
+        }
+        window.addEventListener('error', function (e) {
+          var t = e && e.target;
+          if (t && t.tagName && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) showRetry();
+        }, true);
+        setTimeout(showRetry, 10000);
+      })();
+    </script>
+    <script type="module" src="/src/verify.tsx"></script>
+  </body>
+</html>

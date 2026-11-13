@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #050a1f;
+  background-image: linear-gradient(160deg, #040817 0%, #0a1433 38%, #120f3a 68%, #070b22 100%);
+  background-attachment: fixed;
+  color: #f1f5f9;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.moon-sphere {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(71, 85, 105, 0.55) 0 9%, transparent 10%),
+    radial-gradient(circle at 62% 30%, rgba(71, 85, 105, 0.5) 0 7%, transparent 8%),
+    radial-gradient(circle at 48% 62%, rgba(71, 85, 105, 0.45) 0 12%, transparent 13%),
+    radial-gradient(circle at 34% 30%, #f1f5f9 0%, #cbd5e1 35%, #64748b 72%, #1e293b 100%);
+  box-shadow: 0 0 90px 20px rgba(148, 163, 184, 0.14), inset -30px -30px 60px rgba(2, 6, 23, 0.7);
+}
+
+@layer components {
+  /* Frosted glass surface for cards, panels and tables floating over the sky. */
+  .glass {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: linear-gradient(145deg, rgba(30, 41, 82, 0.42) 0%, rgba(15, 23, 52, 0.32) 100%);
+    box-shadow:
+      0 18px 48px -18px rgba(2, 6, 23, 0.75),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+    transition:
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  /* Lighter glass used for tiles nested inside a glass card. */
+  .glass-soft {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    transition:
+      border-color 0.3s ease,
+      background-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  /* Soft cosmic glow on hover for cards and tiles. */
+  .glow-hover:hover {
+    border-color: rgba(125, 211, 252, 0.38);
+    box-shadow:
+      0 18px 48px -18px rgba(2, 6, 23, 0.75),
+      0 0 28px -6px rgba(56, 189, 248, 0.28),
+      0 0 60px -20px rgba(139, 92, 246, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-soft.glow-hover:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 22px -8px rgba(56, 189, 248, 0.35);
+  }
+
+  /* Glow halo for buttons, chips and quiz options. */
+  .glow-btn {
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .glow-btn:not(:disabled):hover,
+  .glow-btn:not(:disabled):focus-visible {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 0 22px -4px rgba(56, 189, 248, 0.55),
+      0 0 44px -14px rgba(167, 139, 250, 0.6);
+  }
+
+  .glow-btn-amber:not(:disabled):hover,
+  .glow-btn-amber:not(:disabled):focus-visible {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 0 22px -4px rgba(252, 211, 77, 0.55),
+      0 0 44px -14px rgba(251, 146, 60, 0.5);
+  }
+
+  /* Frosted table styling */
+  .glass-table thead {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-table tbody tr {
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .glass-table tbody tr:hover {
+    background: rgba(56, 189, 248, 0.07);
+    box-shadow: inset 3px 0 0 rgba(125, 211, 252, 0.6);
+  }
+}
+
+/* Ambient aurora / nebula glows drifting in the corners of the sky. */
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  /* The radial gradients already fade to transparent, so no blur() filter is
+     needed; animating only transform keeps this on the GPU compositor. */
+  opacity: 0.5;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.aurora-a {
+  top: -18vmax;
+  left: -14vmax;
+  width: 60vmax;
+  height: 48vmax;
+  background: radial-gradient(closest-side, rgba(37, 99, 235, 0.55), rgba(30, 64, 175, 0.18) 60%, transparent);
+  animation: aurora-drift-a 38s ease-in-out infinite alternate;
+}
+
+.aurora-b {
+  top: 18vh;
+  right: -20vmax;
+  width: 52vmax;
+  height: 46vmax;
+  background: radial-gradient(closest-side, rgba(139, 92, 246, 0.42), rgba(109, 40, 217, 0.14) 60%, transparent);
+  animation: aurora-drift-b 46s ease-in-out infinite alternate;
+}
+
+.aurora-c {
+  bottom: -22vmax;
+  left: 20vw;
+  width: 64vmax;
+  height: 40vmax;
+  background: radial-gradient(closest-side, rgba(14, 165, 233, 0.3), rgba(20, 184, 166, 0.1) 60%, transparent);
+  animation: aurora-drift-c 52s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift-a {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(8vw, 6vh, 0) scale(1.15); }
+}
+
+@keyframes aurora-drift-b {
+  0% { transform: translate3d(0, 0, 0) scale(1.05); }
+  100% { transform: translate3d(-7vw, 8vh, 0) scale(0.92); }
+}
+
+@keyframes aurora-drift-c {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-10vw, -5vh, 0) scale(1.12); }
+}
+
+/* The background drift is very slow and soft, so it stays on for every device
+   (many laptops/desktops report reduced motion by default). Only UI
+   transitions and smooth scrolling are shortened. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
